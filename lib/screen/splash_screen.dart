@@ -1,3 +1,4 @@
+import 'package:final_project_edspert/screen/login_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,10 +12,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => const LoginPage()));
-    // });
+    Future.delayed(const Duration(seconds: 4), () {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const LoginPage()));
+    });
   }
 
   @override
