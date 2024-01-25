@@ -23,7 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
     return const Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text('NONTON·ID')],
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'NONTON·ID',
+            style: TextStyle(color: Colors.white, fontSize: 30),
+          )
+        ],
       ),
     );
   }
