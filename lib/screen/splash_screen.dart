@@ -1,5 +1,8 @@
-import 'package:final_project_edspert/screen/login_page.dart';
+import 'package:final_project_edspert/screen/auth/login_screen.dart';
+import 'package:final_project_edspert/utils/image_dir.dart';
+import 'package:final_project_edspert/utils/widgets/edspert_text_nonton_id.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const LoginPage()));
+          .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
     });
   }
 
@@ -28,15 +31,11 @@ class _SplashScreenState extends State<SplashScreen> {
               bottom: 0,
               right: 0,
               left: 0,
-              child: Image.asset("assets/splash_illustration.png")),
+              child: Image.asset(ImageDir.splashIllustration)),
           Container(
             width: double.infinity,
             margin: const EdgeInsets.only(top: 192),
-            child: const Text(
-              'NONTON·ID',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 30),
-            ),
+            child:  EdspertNontonId.apply(),
           ),
         ],
       ),
