@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:final_project_edspert/model/home/movie_model.dart';
 import 'package:final_project_edspert/utils/image_dir.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -17,6 +18,23 @@ class _HomeScreenState extends State<HomeScreen> {
   var _current = 0;
   final CarouselController _controller = CarouselController();
 
+  List<MovieModel> listMovie = [
+    MovieModel(
+      title: "Star Wars : The Last",
+      image: ImageDir.imageItem1,
+      rating: "4",
+    ),
+    MovieModel(
+      title: "Fast & Furious 9",
+      image: ImageDir.imageItem1,
+      rating: "5",
+    ),
+    MovieModel(
+      title: "The Conjuring 3",
+      image: ImageDir.imageItem1,
+      rating: "2",
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,14 +98,14 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 30,
             ),
             SingleChildScrollView(
-             scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  cardMovie(),
-                  cardMovie(),
-                  cardMovie(),
-                  cardMovie(),
-                ],
+                children: List.generate(
+                  listMovie.length,
+                  (index) => cardMovie(
+                    listMovie[index],
+                  ),
+                ),
               ),
             ),
           ],
@@ -96,41 +114,47 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget cardMovie() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Image.asset(ImageDir.imageItem1, fit: BoxFit.fill, width: 150),
-        const SizedBox(
-          height: 12,
-        ),
-        Text("Star Wars : The Last",
-            style: GoogleFonts.openSans(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            )),
-        SizedBox(
-          height: 6,
-        ),
-        RatingBar.builder(
-          initialRating: 3,
-          minRating: 1,
-          direction: Axis.horizontal,
-          allowHalfRating: true,
-          itemCount: 5,
-          itemSize: 10,
-          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-          itemBuilder: (context, _) => const Icon(
-            Icons.star,
-            color: Colors.amber,
-            size: 10,
+  Widget cardMovie(MovieModel movieModel) {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, '/detail-content-screen',
+            arguments: {'movieModel': movieModel});
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset(movieModel.image, fit: BoxFit.fill, width: 150),
+          const SizedBox(
+            height: 12,
           ),
-          onRatingUpdate: (rating) {
-            print(rating);
-          },
-        ),
-      ],
+          Text(movieModel.title,
+              style: GoogleFonts.openSans(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              )),
+          SizedBox(
+            height: 6,
+          ),
+          RatingBar.builder(
+            initialRating: double.parse(movieModel.rating),
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemSize: 10,
+            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => const Icon(
+              Icons.star,
+              color: Colors.amber,
+              size: 10,
+            ),
+            onRatingUpdate: (rating) {
+              print(rating);
+            },
+          ),
+        ],
+      ),
     );
   }
 
