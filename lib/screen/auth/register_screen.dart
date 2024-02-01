@@ -1,3 +1,4 @@
+import 'package:final_project_edspert/core/navigation/edspert_navigation.dart';
 import 'package:final_project_edspert/screen/menu/home_screen.dart';
 import 'package:final_project_edspert/utils/widgets/edspert_button.dart';
 import 'package:final_project_edspert/utils/widgets/edspert_text_nonton_id.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterScreen extends StatelessWidget {
+  static const routeName = '/register-screen';
   const RegisterScreen({super.key});
 
   @override
@@ -89,8 +91,7 @@ class RegisterScreen extends StatelessWidget {
               child: EdspertButton().primary(
                 text: "Daftar",
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (builder) => const HomeScreen()));
+                  _onTapButtonRegister();
                 },
               ),
             ),
@@ -98,5 +99,8 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  void _onTapButtonRegister() {
+    EdspertNavigation().pushReplacementNamed(HomeScreen.routeName);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:final_project_edspert/core/navigation/edspert_navigation.dart';
 import 'package:final_project_edspert/screen/auth/register_screen.dart';
 import 'package:final_project_edspert/screen/menu/home_screen.dart';
 import 'package:final_project_edspert/utils/widgets/edspert_button.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const routeName = '/login-screen';
   const LoginScreen({
     super.key,
   });
@@ -49,10 +51,9 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(
                     height: 32,
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const RegisterScreen()));
+                      Navigator.of(context).pushNamed(RegisterScreen.routeName);
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -83,8 +84,7 @@ class LoginScreen extends StatelessWidget {
               child: EdspertButton().primary(
                 text: "Masuk",
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const HomeScreen()));
+                  _onTapButtonLogin();
                 },
               ),
             ),
@@ -92,5 +92,9 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onTapButtonLogin() {
+    EdspertNavigation().pushReplacementNamed(HomeScreen.routeName);
   }
 }
