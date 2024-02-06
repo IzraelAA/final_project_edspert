@@ -1,9 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:final_project_edspert/model/home/movie_model.dart';
+import 'package:final_project_edspert/screen/content/detail_content_screen.dart';
+import 'package:final_project_edspert/utils/edspert_color.dart';
 import 'package:final_project_edspert/utils/image_dir.dart';
+import 'package:final_project_edspert/utils/svg_dir.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home-screen';
@@ -20,24 +25,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<MovieModel> listMovie = [
     MovieModel(
-      title: "Star Wars : The Last",
-      image: ImageDir.imageItem1,
-      rating: "4",
-    ),
+        title: "Star Wars : The Last",
+        image: ImageDir.imageItem1,
+        rating: "4",
+        description:
+            "Dalam film Lucasfilm Star Wars: The Last Jedi, kisah keluarga Skywalker diteruskan ketika para pahlawan The Force Awakens bergabung dengan para legenda galaksi dalam sebuah petualangan mencengangkan untuk menguak kunci misteri lintas zaman mengenai the Force serta terkuaknya secara mengejutkan berbagai rahasia masa lalu.\nFilm ini dibintangi Mark Hamill, Carrie Fisher, Adam Driver, Daisy Ridley, John Boyega, Oscar Isaac, Lupita Nyong’o, Andy Serkis, Domhnall Gleeson, Anthony Daniels, Gwendoline Christie, Kelly Marie Tran, Laura Dern dan Benicio Del Toro.\nStar Wars: The Last Jedi ditulis & disutradarai oleh Rian Johnson dan diproduseri Kathleen Kennedy serta Ram Bergman. J.J. Abrams, Tom Karnowski dan Jason McGatlin sebagai produser eksekutif."),
     MovieModel(
-      title: "Fast & Furious 9",
-      image: ImageDir.imageItem1,
-      rating: "5",
-    ),
+        title: "Fast & Furious 9",
+        image: ImageDir.imageItem1,
+        rating: "5",
+        description:
+            "Dalam film Lucasfilm Star Wars: The Last Jedi, kisah keluarga Skywalker diteruskan ketika para pahlawan The Force Awakens bergabung dengan para legenda galaksi dalam sebuah petualangan mencengangkan untuk menguak kunci misteri lintas zaman mengenai the Force serta terkuaknya secara mengejutkan berbagai rahasia masa lalu.\nFilm ini dibintangi Mark Hamill, Carrie Fisher, Adam Driver, Daisy Ridley, John Boyega, Oscar Isaac, Lupita Nyong’o, Andy Serkis, Domhnall Gleeson, Anthony Daniels, Gwendoline Christie, Kelly Marie Tran, Laura Dern dan Benicio Del Toro.\nStar Wars: The Last Jedi ditulis & disutradarai oleh Rian Johnson dan diproduseri Kathleen Kennedy serta Ram Bergman. J.J. Abrams, Tom Karnowski dan Jason McGatlin sebagai produser eksekutif."),
     MovieModel(
-      title: "The Conjuring 3",
-      image: ImageDir.imageItem1,
-      rating: "2",
-    ),
+        title: "The Conjuring 3",
+        image: ImageDir.imageItem1,
+        rating: "2",
+        description:
+            "Dalam film Lucasfilm Star Wars: The Last Jedi, kisah keluarga Skywalker diteruskan ketika para pahlawan The Force Awakens bergabung dengan para legenda galaksi dalam sebuah petualangan mencengangkan untuk menguak kunci misteri lintas zaman mengenai the Force serta terkuaknya secara mengejutkan berbagai rahasia masa lalu.\nFilm ini dibintangi Mark Hamill, Carrie Fisher, Adam Driver, Daisy Ridley, John Boyega, Oscar Isaac, Lupita Nyong’o, Andy Serkis, Domhnall Gleeson, Anthony Daniels, Gwendoline Christie, Kelly Marie Tran, Laura Dern dan Benicio Del Toro.\nStar Wars: The Last Jedi ditulis & disutradarai oleh Rian Johnson dan diproduseri Kathleen Kennedy serta Ram Bergman. J.J. Abrams, Tom Karnowski dan Jason McGatlin sebagai produser eksekutif."),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: EdspertColor.primaryColor,
       appBar: AppBar(
         leading: Image.asset(ImageDir.dummyProfile),
         actions: const [
@@ -50,7 +60,47 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: SafeArea(
+      body: PersistentTabView(
+        backgroundColor: EdspertColor.primaryColor,
+        resizeToAvoidBottomInset: true,
+        navBarHeight: 90,
+        navBarStyle: NavBarStyle.style6,
+        decoration: NavBarDecoration(
+          colorBehindNavBar: EdspertColor.primaryColor,
+        ),
+        context,
+        screens: [
+          _bodyScreen(),
+          Text("Ticket"),
+          Text("Bioskop"),
+          Text("User"),
+        ],
+        items: [
+          _bottomNavigationBar(
+            SvgDir.home,
+            "Home",
+          ),
+          _bottomNavigationBar(
+            SvgDir.ticket,
+            "Ticket",
+          ),
+          _bottomNavigationBar(
+            SvgDir.bioskop,
+            "Bioskop",
+          ),
+          _bottomNavigationBar(
+            SvgDir.user,
+            "User",
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _bodyScreen() {
+    return Container(
+      color: EdspertColor.primaryColor,
+      child: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
@@ -114,11 +164,41 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  PersistentBottomNavBarItem _bottomNavigationBar(
+    String svgDir,
+    String title,
+  ) {
+    return PersistentBottomNavBarItem(
+      icon: Column(
+        children: [
+          SvgPicture.asset(
+            svgDir,
+            width: 24,
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Text(
+            title,
+            style: GoogleFonts.openSans(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget cardMovie(MovieModel movieModel) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/detail-content-screen',
-            arguments: {'movieModel': movieModel});
+        Navigator.pushNamed(
+          context,
+          DetailContentScreen.routeName,
+          arguments: {'movieModel': movieModel},
+        );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               )),
-          SizedBox(
+          const SizedBox(
             height: 6,
           ),
           RatingBar.builder(

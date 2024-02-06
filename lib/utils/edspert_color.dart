@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-class EdspertColor{
+class EdspertColor {
   static const Color primaryColor = Color(0xff1C1A29);
   static const Color yellow = Color(0xffF2C94C);
+  static const Color bottomColor = Color(0xff2F2C44);
 }

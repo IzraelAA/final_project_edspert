@@ -1,5 +1,6 @@
 import 'package:final_project_edspert/screen/auth/login_screen.dart';
 import 'package:final_project_edspert/screen/auth/register_screen.dart';
+import 'package:final_project_edspert/screen/content/buy_ticket_screen.dart';
 import 'package:final_project_edspert/screen/content/detail_content_screen.dart';
 import 'package:final_project_edspert/screen/menu/home_screen.dart';
 import 'package:final_project_edspert/screen/splash_screen.dart';
@@ -15,6 +16,7 @@ class EdspertNavigation {
     RegisterScreen.routeName: (context) => const RegisterScreen(),
     HomeScreen.routeName: (context) => const HomeScreen(),
     DetailContentScreen.routeName: (context) => const DetailContentScreen(),
+    BuyTicketScreen.routeName: (context) =>  BuyTicketScreen(),
   };
 
   void pushNamed(String routeName, {Object? arguments}) {
