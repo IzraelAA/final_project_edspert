@@ -1,4 +1,4 @@
-package com.example.final_project_edspert
+package com.edspert.maulana
 
 import io.flutter.embedding.android.FlutterActivity
 
